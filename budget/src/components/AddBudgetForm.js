@@ -1,14 +1,16 @@
 import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
 import React from 'react';
-import { Form } from 'react-router-dom';
+import { Form, useFetcher } from 'react-router-dom';
 
 const AddBudgetForm = () => {
+  const fetcher = useFetcher();
+
   return (
     <div className='form-wrapper'>
       <h2 className='h3'>
         Create budget
       </h2>
-      <Form
+      <fetcher.Form
         method='post'
         className='grid-sm'
       >
@@ -34,11 +36,16 @@ const AddBudgetForm = () => {
                 inputMode='decimal'
             />
         </div>
+        <input
+          type='hidden'
+          name='_action'
+          value="createBudget"
+        />
         <button type='submit' className='btn btn-dark'>
             <span>Create budget</span>
             <CurrencyRupeeIcon width={20} />
         </button>
-      </Form>
+      </fetcher.Form>
     </div>
   )
 }
