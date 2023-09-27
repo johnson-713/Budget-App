@@ -3,11 +3,12 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 
 // helper functions
-import { createBudget, fetchData, wait } from "../helpers";
+import { createBudget, createExpense, fetchData, wait } from "../helpers";
 import Intro from "../components/Intro";
 import { toast } from "react-toastify";
 import AddBudgetForm from "../components/AddBudgetForm";
 import AddExpenseForm from "../components/AddExpenseForm";
+import BudgetItem from "../components/BudgetItem";
 
 //loader
 export function dashboardLoader() {
@@ -44,7 +45,22 @@ export async function dashboardAction({ request }) {
       throw new Error("There was a problem creating a new budget");
     }
   }
+
+    // new expense creation
+    if (_action === "createExpense") {
+      try {
+        createExpense({
+          name: values.newExpense,
+          amount: values.newExpenseAmount,
+          budgetId: values.newExpenseBudget,
+        })
+        return toast.success(`Expense ${values.newExpense} created!`);
+      } catch (e) {
+        throw new Error("There was a problem creating a new expense");
+      }
+    }
 }
+
 
 const Dashboard = () => {
   const { userName, budgets } = useLoaderData();
@@ -60,10 +76,18 @@ const Dashboard = () => {
             {
               budgets && budgets.length > 0
               ? (
-                <div className="grid-lg">
+              <div className="grid-lg">
                 <div className="flex-lg">
                   <AddBudgetForm />
                   <AddExpenseForm budgets={budgets} />
+                </div>
+                <h2>Existing Budgets</h2>
+                <div className="budgets">
+                  {
+                    budgets.map((budget) =>(
+                      <BudgetItem key={budget.id} budget={budget} />
+                    ))
+                  }
                 </div>
               </div>
               )
