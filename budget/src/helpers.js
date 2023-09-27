@@ -1,5 +1,5 @@
 export const wait = () => new Promise(res => 
-    setTimeout(res, Math.random() * 2000));
+    setTimeout(res, Math.random() * 800));
 
 
 // colors
@@ -20,7 +20,7 @@ export const createBudget = ({
     const newItem = {
         id: crypto.randomUUID(),
         name: name,
-        createAt: Date.now(),
+        createdAt: Date.now(),
         amount: +amount,
         color: generateRandomColor(),
     }
@@ -35,7 +35,7 @@ export const createExpense = ({
     const newItem = {
         id: crypto.randomUUID(),
         name: name,
-        createAt: Date.now(),
+        createdAt: Date.now(),
         amount: +amount,
         budgetId: budgetId,
     }
@@ -62,6 +62,9 @@ export const calculateSpentByBudget = (budgetId) => {
 }
 
 // Formatting
+
+export const formatDateToLocaleString = (epoch) => 
+    new Date(epoch).toLocaleDateString();
 
 // format percentages
 export const formatPercentage = (amt) => {
