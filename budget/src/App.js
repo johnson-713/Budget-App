@@ -9,7 +9,7 @@ import { logoutAction } from './actions/Logout';
 
 //Routes
 import Dashboard, { dashboardAction, dashboardLoader } from './Pages/Dashboard';
-import { expenseLoader } from './Pages/ExpensesPage';
+import { expenseAction, expenseLoader } from './Pages/ExpensesPage';
 import Error from './Pages/Error';
 
 // layouts
@@ -40,6 +40,7 @@ const router = createBrowserRouter([
         path: "expenses",
         element: <ExpensesPage />,
         loader: expenseLoader,
+        action: expenseAction,
       },
       {
         path: "logout",
