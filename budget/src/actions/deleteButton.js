@@ -24,7 +24,7 @@ export function deleteButton({params}){
 
         toast.success("Budget deleted successfully!")
     } catch (e) {
-        throw new Error("There was a problem dekleting your budget.")
+        throw new Error("There was a problem deleting your budget.")
     }
     return redirect("/");
 }
