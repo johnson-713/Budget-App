@@ -20,6 +20,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ExpensesPage from './Pages/ExpensesPage';
 import BudgetPage, { budgetAction, budgetLoader } from './Pages/BudgetPage';
+import { deleteButton } from './actions/deleteButton';
+
+
 
 
 const router = createBrowserRouter([
@@ -42,7 +45,13 @@ const router = createBrowserRouter([
         element: <BudgetPage />,
         loader: budgetLoader,
         action: budgetAction,
-        errorElement: <Error />
+        errorElement: <Error />,
+        children: [
+          {
+            path: "delete",
+            action: deleteButton,
+          }
+        ]
       },
       {
         path: "expenses",
