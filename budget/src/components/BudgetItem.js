@@ -1,11 +1,23 @@
 import React from 'react';
 import { calculateSpentByBudget, formatCurrency, formatPercentage } from '../helpers';
-import { Form, Link } from 'react-router-dom';
+import { Form, Link, useNavigate } from 'react-router-dom';
 import { BanknotesIcon, TrashIcon } from '@heroicons/react/24/solid';
 
 const BudgetItem = ({budget, showDelete = false }) => {
     const {id, name, amount, color} = budget;
     const spent = calculateSpentByBudget(id);
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+      navigate("/");
+    };
+
+    const handleDelete = (e) => {
+      if(window.confirm("Are you sure you want to permanently delete this budget?")) {
+        e.preventDefault();
+      }
+    };
+    
   return (
     <div 
         className='budget'
@@ -28,13 +40,9 @@ const BudgetItem = ({budget, showDelete = false }) => {
             <Form
               method="post"
               action="action"
-              onSubmit={(event) => {
-                if(!confirm("Are you sure you want to permanently delete this budget?")){
-                  event.preventDefault();
-                }
-              }}
+              onSubmit={handleDelete}
             >
-              <button type='submit' className='btn'>
+              <button type='submit' className='btn' onClick={handleNavigate}>
                 <span>Delete Budget</span>
                 <TrashIcon width={20} />  
               </button>

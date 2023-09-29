@@ -1,8 +1,10 @@
 import { toast } from "react-toastify";
 import { deleteItem, getAllMatchingItems } from "../helpers";
-import { redirect } from "react-router-dom";
 
-export function deleteButton({params}){
+
+
+export function DeleteButton({params}) {
+
     try{
         deleteItem({
             key: "budgets",
@@ -22,9 +24,8 @@ export function deleteButton({params}){
             });
         });
 
-        toast.success("Budget deleted successfully!")
+        toast.success("Budget deleted successfully!");
     } catch (e) {
         throw new Error("There was a problem deleting your budget.")
     }
-    return redirect("/");
 }
